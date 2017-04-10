@@ -20,9 +20,7 @@ class Client {
      */
     public function __construct(EnvironmentSettings $env = null)
     {
-        if(is_null($env)) {
-            $this->env = new EnvironmentSettings();
-        }
+        $this->env = is_null($env) ? new EnvironmentSettings() : $env;
     }
 
     /**

@@ -8,26 +8,36 @@ use LUIS\Models\Interfaces\ApiResponse;
 abstract class RequestHandler {
 
     /**
-     * @var string
+     * @var string the base path of this request's handler
      */
     private $basePath;
 
     /**
-     * @param string $basePath
+     * @var string the programmatic key to the LUIS API
      */
-    public function __construct($basePath = '')
+    private $programmaticKey;
+
+    /**
+     * Constructs a new request handler
+     *
+     * @param string $basePath
+     * @param string $programmaticKey
+     */
+    public function __construct($basePath = '', $programmaticKey = '')
     {
         $this->basePath = $basePath;
+        $this->programmaticKey = $programmaticKey;
     }
 
     /**
-     * @param string $programmaticKey
-     * @param ApiRequest $request
-     * @return ApiResponse
+     * Executes a request
+     *
+     * @param ApiRequest $request the request to execute
+     * @return ApiResponse the response returned
      */
-    public function execute($programmaticKey, ApiRequest $request)
+    public function execute(ApiRequest $request)
     {
-        return $request->execute($this->basePath, $programmaticKey);
+        return $request->execute($this->basePath, $this->programmaticKey);
     }
 
 }

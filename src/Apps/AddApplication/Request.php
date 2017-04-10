@@ -21,15 +21,16 @@ class Request extends BaseRequest implements ApiRequest
     private $requestBody;
 
     /**
+     * Construct a new request
+     *
      * @param Application $application
-     * @param string $endpoint
      */
-    public function __construct(Application $application, $endpoint)
+    public function __construct(Application $application)
     {
         $this->requestBody = (object)[
             'Culture'          => $application->getCulture(),
             'Domain'           => $application->getDomain(),
-            'InitialVersionId' => $application->getVersionId($endpoint),
+            'InitialVersionId' => $application->getInitialVersionId(),
             'UsageScenario'    => $application->getUsageScenario(),
             'Name'             => $application->getName(),
         ];

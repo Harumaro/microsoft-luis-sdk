@@ -25,6 +25,8 @@ class Application implements BaseEntity {
 
     private $endpointHitsCount;
 
+    private $initialVersionId;
+
     private $versionId = [];
 
     private $isStaging = [];
@@ -240,6 +242,22 @@ class Application implements BaseEntity {
     public function setUsageScenario($usageScenario)
     {
         $this->usageScenario = $usageScenario;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInitialVersionId()
+    {
+        return $this->initialVersionId;
+    }
+
+    /**
+     * @param $initialVersionId
+     */
+    public function setInitialVersionId($initialVersionId)
+    {
+        $this->initialVersionId = $initialVersionId;
     }
 
     /**

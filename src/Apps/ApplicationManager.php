@@ -24,18 +24,22 @@ class ApplicationManager extends RequestHandler
     private $apps = [];
 
     /**
-     * Creates a new application resource
+     * Creates a new application requests handler
      *
      * @param Client $client
      */
     public function __construct(Client $client)
     {
         $this->client = $client;
+        $path = EnvironmentSettings::API_BASE_URI . EnvironmentSettings::API_VERSION . self::API_URI;
+        $programmaticKey = $this->client->getEnv()->getProgrammaticKey();
 
-        parent::__construct(EnvironmentSettings::API_BASE_URI . EnvironmentSettings::API_VERSION . self::API_URI);
+        parent::__construct($path, $programmaticKey);
     }
 
     /**
+     * Gets an application from the manager's applications bucket
+     *
      * @param $appId
      * @return null
      */
@@ -45,8 +49,9 @@ class ApplicationManager extends RequestHandler
     }
 
     /**
+     * Puts an application in the manager's applications bucket
+     *
      * @param Application $application
-     * @codeCoverageIgnore
      */
     private function set(Application $application)
     {
@@ -63,12 +68,15 @@ class ApplicationManager extends RequestHandler
         return $this->apps;
     }
 
-    public function addApplication(Application $application, $endpoint)
+    /**
+     * Adds a new application
+     *
+     * @param Application $application the application's parameters to send through the request
+     * @throws ResponseNotValidException
+     */
+    public function addApplication(Application $application)
     {
-        $response = $this->execute(
-            $this->client->getEnv()->getProgrammaticKey(),
-            new AddApplication\Request($application, $endpoint)
-        );
+        $response = $this->execute(new AddApplication\Request($application));
         $validator = $response->validate();
 
         if ($validator->passes()) {

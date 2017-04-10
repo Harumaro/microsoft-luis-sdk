@@ -49,6 +49,7 @@ class ApplicationTest extends BaseTest {
         $this->assertAttributeEmpty('endpointHitsCount', $application);
         $this->assertAttributeEmpty('usageScenario', $application);
         $this->assertAttributeEmpty('versionsCount', $application);
+        $this->assertAttributeEmpty('initialVersionId', $application);
         $this->assertAttributeEmpty('versionId', $application);
         $this->assertAttributeEmpty('assignedEndpointKey', $application);
         $this->assertAttributeEmpty('createdAt', $application);
@@ -67,6 +68,7 @@ class ApplicationTest extends BaseTest {
                 "endpointHitsCount" => "dummyText",
                 "usageScenario" => "dummyText",
                 "versionsCount" => "dummyText",
+                "initialVersionId" => "dummyText",
                 "endpoints" => [
                     $this->endpoint => [
                         "versionId" => "dummyText",
@@ -91,6 +93,7 @@ class ApplicationTest extends BaseTest {
         $this->assertEquals('dummyText', $application->getEndpointHitsCount());
         $this->assertEquals('dummyText', $application->getUsageScenario());
         $this->assertEquals('dummyText', $application->getVersionsCount());
+        $this->assertEquals('dummyText', $application->getInitialVersionId());
 
         $this->assertEquals('dummyText', $application->getVersionId($this->endpoint));
         $this->assertEquals('dummyText', $application->getAssignedEndpointKey($this->endpoint));
