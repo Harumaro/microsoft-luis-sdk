@@ -1,0 +1,15 @@
+language: php
+php:
+  - '5.6'
+  - '7.0'
+  - '7.1'
+
+install:
+  - travis_retry composer install --no-interaction
+
+script:
+  - mkdir -p build/logs
+  - travis_retry php bin/phpunit
+
+after_success:
+  - travis_retry php bin/coveralls
