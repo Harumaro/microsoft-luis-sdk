@@ -8,9 +8,11 @@ abstract class BaseRequest
 {
 
     /**
-     * @param $httpMethod
-     * @param $requestPath
-     * @param $programmaticKey
+     * Fetches a response from an API endpoint
+     *
+     * @param string $httpMethod the method of the request
+     * @param string $requestPath the URI of the request
+     * @param string $programmaticKey
      * @return mixed
      */
     protected function fetchResponse($httpMethod, $requestPath, $programmaticKey)
@@ -28,6 +30,8 @@ abstract class BaseRequest
     }
 
     /**
+     * Converts this request array data to a json string
+     *
      * @param array $rawRequest
      * @return string
      */

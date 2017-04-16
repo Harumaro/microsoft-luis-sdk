@@ -8,14 +8,34 @@ use LUIS\Models\BaseResponse;
 
 class Response extends BaseResponse implements ApiResponse {
 
+    /**
+     * @var mixed
+     */
     private $responseBody;
 
+    /**
+     * @var string
+     */
     private $rawResponseBody;
+
+    /**
+     * @var Validator
+     */
+    private $validator;
 
     public function __construct($rawResponse)
     {
         $this->rawResponseBody = $rawResponse;
-        $this->responseBody = $this->make($rawResponse);
+        /**
+         * When getting a valid response
+         * Wraps this string response as we're receiving an id
+         */
+        $managedResponse = $rawResponse;
+        if($this->validate()->passes()) {
+            $managedResponse = \GuzzleHttp\json_encode(['id' => $rawResponse]);
+        }
+
+        $this->responseBody = $this->make($managedResponse);
     }
 
     /**
@@ -25,7 +45,11 @@ class Response extends BaseResponse implements ApiResponse {
      */
     public function validate()
     {
-        return new Validator(\GuzzleHttp\json_decode($this->rawResponseBody), $this->schema());
+        if(is_null($this->validator)) {
+            $this->validator = new Validator(\GuzzleHttp\json_decode($this->rawResponseBody), $this->schema());
+        }
+
+        return $this->validator;
     }
 
     /**

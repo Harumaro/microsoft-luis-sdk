@@ -103,7 +103,7 @@ class ApplicationTest extends BaseTest {
         $this->assertEquals('dummyText', $application->getPublishedDateTime($this->endpoint));
     }
 
-    public function testShouldFillIdIfReceivesAString()
+    public function testShouldNotFillIdIfReceivesAString()
     {
         $application = new Application();
 
@@ -117,7 +117,7 @@ class ApplicationTest extends BaseTest {
 
         $application->fill($response);
 
-        $this->assertEquals('dummyText', $application->getId());
+        $this->assertEmpty($application->getId());
     }
 
     public function testShouldThrowAnExceptionIfAttributeDoesNotExistInEntity()

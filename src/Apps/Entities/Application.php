@@ -315,8 +315,6 @@ class Application implements BaseEntity {
                     $this->{'set'.ucfirst($key)}($item);
                 }
             }
-        } else {
-            $this->setId($responseBody);
         }
     }
 
